@@ -1,0 +1,11 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: long tests (benchmark regression); skip with -m 'not slow'"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+# The skill scripts use a compact style: several imports or statements on one line.
+ignore = ["E401", "E701", "E702", "E731", "E741"]
