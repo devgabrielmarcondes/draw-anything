@@ -325,7 +325,7 @@ def write_svg(layers, w, h, out, bg=None):
                         f'stroke-linejoin="{join}" stroke-miterlimit="10">' + "".join(g) + "</g>")
         else:
             body.append(f'<path id="color-{i + 1}" d="{svg_d(layer[1], h)}" fill="{col}" fill-rule="evenodd"/>')
-    open(out, "w").write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" '
+    open(out, "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" '
                          f'width="{w}" height="{h}">' + "".join(body) + "</svg>")
 
 
@@ -546,7 +546,7 @@ def main():
         render_png(layers, w, h, a.png, size, th, bg); print("PNG:", a.png)
     if a.desmos:
         lines = desmos_lines(layers)
-        open(a.desmos, "w").write("\n".join(lines) + "\n")
+        open(a.desmos, "w", encoding="utf-8").write("\n".join(lines) + "\n")
         print(f"Desmos: {a.desmos} ({len(lines)} expressions)")
         if len(lines) > 1500:
             print("  warning: too many expressions; increase --detail/--tolerance or use a smaller image")

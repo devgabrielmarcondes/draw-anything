@@ -171,7 +171,7 @@ def contours_from_image(path, threshold=0.5, min_len=40, invert=False):
 
 
 def contours_from_points(path):
-    data = json.load(open(path))
+    data = json.load(open(path, encoding="utf-8"))
     if isinstance(data, dict):
         data = data.get("contours") or data.get("points")
     if data and isinstance(data[0][0], (int, float)):
@@ -517,18 +517,18 @@ def main():
         if a.png:
             render_static_multi(series, a.png, size, th, fill=a.fill); print("PNG:", a.png)
         if a.desmos:
-            open(a.desmos, "w").write("\n".join(desmos_multi(series)) + "\n")
+            open(a.desmos, "w", encoding="utf-8").write("\n".join(desmos_multi(series)) + "\n")
             print("Desmos:", a.desmos, "(one line for each contour; t from 0 to 1)")
         if a.json:
             json.dump([[{"k": k, "re": c.real, "im": c.imag} for k, c in co] for co in series],
-                      open(a.json, "w"), indent=1); print("JSON:", a.json)
+                      open(a.json, "w", encoding="utf-8"), indent=1); print("JSON:", a.json)
         if a.svg:
             t = np.linspace(0, 2 * np.pi, 800)
             ds = []
             for co in series:
                 p = evaluate(co, t)
                 ds.append("M " + " L ".join(f"{x:.3f} {-y:.3f}" for x, y in zip(p.real, p.imag)) + " Z")
-            open(a.svg, "w").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-11 -11 22 22">'
+            open(a.svg, "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-11 -11 22 22">'
                                    f'<path d="{" ".join(ds)}" fill="none" stroke="black" stroke-width="0.06"/></svg>')
             print("SVG:", a.svg)
         if a.anim:
@@ -548,18 +548,18 @@ def main():
         p = evaluate(coeffs, np.linspace(0, 2 * np.pi, 1500))
         d = "M " + " L ".join(f"{x:.3f} {-y:.3f}" for x, y in zip(p.real, p.imag)) + " Z"
         vb = f"{p.real.min()-1:.2f} {-p.imag.max()-1:.2f} {np.ptp(p.real)+2:.2f} {np.ptp(p.imag)+2:.2f}"
-        open(a.svg, "w").write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb}">'
+        open(a.svg, "w", encoding="utf-8").write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb}">'
                                f'<path d="{d}" fill="none" stroke="black" stroke-width="0.08"/></svg>')
         print("SVG:", a.svg)
     if a.desmos:
         x, y = desmos_equations(coeffs)
-        open(a.desmos, "w").write(
+        open(a.desmos, "w", encoding="utf-8").write(
             "# Paste the lines into Desmos (t from 0 to 1, the default).\n"
             f"X(t)={x}\nY(t)={y}\n(X(t),Y(t))\n")
         print("Desmos:", a.desmos)
     if a.json:
         json.dump([{"k": k, "re": c.real, "im": c.imag, "raio": abs(c), "fase": float(np.angle(c))}
-                   for k, c in coeffs], open(a.json, "w"), indent=1)
+                   for k, c in coeffs], open(a.json, "w", encoding="utf-8"), indent=1)
         print("JSON:", a.json)
     if a.anim:
         render_animation(coeffs, a.anim, size, th, frames=a.frames, fps=a.fps)

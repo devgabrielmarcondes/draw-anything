@@ -2,10 +2,17 @@
 Shared tools: output sizes, color themes and animation output.
 """
 import os
+import sys
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+# Help texts and reports contain non-ASCII characters (π, ×, é). On Windows, a
+# pipe uses the ANSI code page and print() fails. Always write UTF-8.
+for _s in (sys.stdout, sys.stderr):
+    if hasattr(_s, "reconfigure"):
+        _s.reconfigure(encoding="utf-8")
 
 # Common sizes for content creators (width x height in px)
 FORMATS = {

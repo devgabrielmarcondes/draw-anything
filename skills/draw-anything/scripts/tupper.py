@@ -161,7 +161,7 @@ def main():
         k, H, W = bitmap_to_k(bmp)
         assert (k_to_bitmap(k, H, W) == bmp).all(), "check failed"
     elif a.cmd == "decode":
-        k = int(open(a.k_file).read().split()[0]) if a.k_file else int(a.k)
+        k = int(open(a.k_file, encoding="utf-8").read().split()[0]) if a.k_file else int(a.k)
         H, W = a.height, a.width
         bmp = k_to_bitmap(k, H, W)
     else:
@@ -170,7 +170,7 @@ def main():
 
     print(f"Bitmap {W}×{H}  |  k has {len(str(k))} digits")
     if a.out:
-        open(a.out, "w").write(f"{k}\n\n# Formula (plot 0 ≤ x < {W}, k ≤ y < k+{H}):\n"
+        open(a.out, "w", encoding="utf-8").write(f"{k}\n\n# Formula (plot 0 ≤ x < {W}, k ≤ y < k+{H}):\n"
                                f"# {FORMULA.format(H=H)}\n")
         print("k written to", a.out)
     png = a.png or ("tupper.png" if not a.out else None)
