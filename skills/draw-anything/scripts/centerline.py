@@ -39,7 +39,10 @@ def skeleton_graph(mask):
     deg[~sk] = 0
     node = sk & (deg != 2)
     lab, n = label(node, structure=np.ones((3, 3)))
-    nodes = {i: np.argwhere(lab == i).mean(0) for i in range(1, n + 1)}
+    rr, cc = np.nonzero(lab)               # node centroids in one pass (sums are exact)
+    k = np.bincount(lab[rr, cc], minlength=n + 1)
+    sr, sc = np.bincount(lab[rr, cc], rr, n + 1), np.bincount(lab[rr, cc], cc, n + 1)
+    nodes = {i: np.array([sr[i] / k[i], sc[i] / k[i]]) for i in range(1, n + 1)}
     visited = np.zeros_like(sk)
     edges = []
     for r, c in np.argwhere(node):

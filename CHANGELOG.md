@@ -21,6 +21,7 @@ The project uses [Semantic Versioning](https://semver.org/).
 - `trace_image.py` puts transparent pixels on a white background. Before, it dropped the alpha channel and transparent areas often became black. Color-mode benchmark, test split: ΔE 4.69 → 2.12 (16 colors).
 
 ### Changed
+- `centerline.py` is 2.2× faster (the node centers are found in one pass). The strokes are identical.
 - Benchmark: `bench.py` and `gen.py` use paths relative to their own directory. They no longer use `/home/claude/...` or `/tmp`.
 
 ## [0.1.0] - 2026-11-03
