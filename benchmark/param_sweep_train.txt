@@ -1,0 +1,23 @@
+base {} fill ALL  IoU 0.900  chamfer 0.88  h95 4.87  euler 29.5
+base {} center ALL  IoU 0.835  chamfer 0.32  h95 0.76  euler 2.8
+s06 {"smooth":0.6} fill ALL  IoU 0.899  chamfer 0.91  h95 4.93  euler 29.5
+s06 {"smooth":0.6} center ALL  IoU 0.835  chamfer 0.32  h95 0.76  euler 2.8
+s13 {"smooth":1.3} fill ALL  IoU 0.900  chamfer 0.88  h95 4.87  euler 29.5
+s13 {"smooth":1.3} center ALL  IoU 0.835  chamfer 0.32  h95 0.76  euler 2.8
+denoise {} fill ALL  IoU 0.902  chamfer 0.67  h95 3.99  euler 27.9
+denoise {} center ALL  IoU 0.836  chamfer 0.32  h95 0.75  euler 2.7
+t01 {"tol":0.1} fill ALL  IoU 0.902  chamfer 0.67  h95 3.99  euler 27.9
+t01 {"tol":0.1} center ALL  IoU 0.836  chamfer 0.32  h95 0.75  euler 2.7
+d2 {"detail":2} fill ALL  IoU 0.902  chamfer 0.68  h95 4.02  euler 29.5
+d2 {"detail":2} center ALL  IoU 0.836  chamfer 0.32  h95 0.75  euler 2.8
+d8 {"detail":8} fill ALL  IoU 0.903  chamfer 0.56  h95 3.40  euler 18.9
+d8 {"detail":8} center ALL  IoU 0.836  chamfer 0.31  h95 0.75  euler 2.7
+e06 {"err":0.6} fill ALL  IoU 0.902  chamfer 0.67  h95 3.99  euler 27.9
+e06 {"err":0.6} center ALL  IoU 0.840  chamfer 0.31  h95 0.71  euler 2.8
+e16 {"err":1.6} fill ALL  IoU 0.902  chamfer 0.67  h95 3.99  euler 27.9
+e16 {"err":1.6} center ALL  IoU 0.827  chamfer 0.33  h95 0.77  euler 2.6
+c10 {"csmooth":1.0} fill ALL  IoU 0.902  chamfer 0.67  h95 3.99  euler 27.9
+c10 {"csmooth":1.0} center ALL  IoU 0.839  chamfer 0.31  h95 0.75  euler 2.8
+c25 {"csmooth":2.5} fill ALL  IoU 0.902  chamfer 0.67  h95 3.99  euler 27.9
+c25 {"csmooth":2.5} center ALL  IoU 0.836  chamfer 0.32  h95 0.74  euler 2.8
+DONE
