@@ -18,4 +18,6 @@ npm run dev         # opens Remotion Studio
 - `great-wave-demo.mp4`: output of `trace_image.py --anim-style fourier`.
 - `great-wave-transparent.webm`: output of `trace_image.py --mode color --colors 16 --lines --transparent --anim`.
 
+Music is optional. Put a 31-second track at `showcase/music.mp3`; `npm run assets` copies it, and the render adds it with a fade in and a fade out. Without the file, the video has no sound. Use only music that you have the rights to.
+
 Remotion has its own license. Read [remotion.dev/license](https://www.remotion.dev/license) before you use it in a company.
