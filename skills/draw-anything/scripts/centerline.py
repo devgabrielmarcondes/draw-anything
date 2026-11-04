@@ -536,3 +536,7 @@ def _stroke_widths(mask, chains, dt, w, ink=None):
             wi = wdt
         out.append(float(np.clip(wi, 1.0, 3 * w)))
     return out
+
+
+if __name__ == "__main__":
+    print(__doc__)   # library: trace_image.py --centerline uses it

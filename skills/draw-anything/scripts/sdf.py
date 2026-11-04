@@ -338,6 +338,8 @@ def animate(scene_fn, out, frames=120, fps=30, size="square", theme="dark", tran
 
 
 if __name__ == "__main__":
+    if sys.argv[1:2] in (["-h"], ["--help"]):
+        print(__doc__); sys.exit()
     # Demo: flower with smooth union
     P = grid(1080, 1080, scale=1.3)
     petal = ellipse(translate(repeat_polar(P, 8), 0.55, 0), 0.32, 0.14)
