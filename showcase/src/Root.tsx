@@ -7,6 +7,7 @@ import {
   Folder,
   getStaticFiles,
   interpolate,
+  Sequence,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
@@ -61,9 +62,52 @@ const Music: React.FC = () => {
 };
 const hasMusic = getStaticFiles().some((f) => f.name === "music.mp3");
 
+// Scene starts on the full timeline (each transition overlaps two scenes).
+const ASK = 120 - T;
+const DRAW = ASK + 270 - T;
+const DROP_AT = DRAW + 195 - T;
+const END = DROP_AT + DROP - 24;
+
+// Sound effects: [frame, file in public/sfx, volume]. Frames follow the scene animations.
+const typing: [number, string, number][] = Array.from({ length: 30 }, (_, i) => [
+  ASK + 27 + 2 * i,
+  `key${(i * 7) % 4}`,
+  0.22 + 0.08 * ((i * 5) % 3),
+]);
+const SFX: [number, string, number][] = [
+  [28, "pop", 0.5], // the image card lands
+  [ASK, "whoosh", 0.45],
+  [ASK + 11, "click", 0.5], // image attached to the prompt
+  ...typing,
+  [ASK + 98, "enter", 0.6], // prompt sent
+  [ASK + 112, "blip", 0.3], // tool lines
+  [ASK + 128, "blip", 0.3],
+  [ASK + 168, "blip", 0.25],
+  [ASK + 186, "blip", 0.25],
+  [ASK + 206, "chime", 0.35], // done
+  [DRAW, "whoosh", 0.45],
+  [DROP_AT, "whoosh", 0.45],
+  [DROP_AT + 10, "swish", 0.35], // drag the clip to V2
+  [DROP_AT + 22, "drop", 0.6], // drop it
+  [DROP_AT + 165, "chime", 0.3], // the drawing is complete
+  [END - 20, "shimmer", 0.35], // iris
+  ...Array.from({ length: 8 }, (_, i): [number, string, number] => [END + 30 + 11 * i, i === 7 ? "blip" : "tick", 0.3]),
+];
+
+const Sfx: React.FC = () => (
+  <>
+    {SFX.map(([at, name, volume], i) => (
+      <Sequence key={i} from={at} layout="none">
+        <Audio src={staticFile(`sfx/${name}.wav`)} volume={volume} />
+      </Sequence>
+    ))}
+  </>
+);
+
 const Showcase: React.FC = () => (
   <>
     {hasMusic ? <Music /> : null}
+    <Sfx />
     <TransitionSeries>
       <TransitionSeries.Sequence durationInFrames={120} name="Find">
         <Drift>
