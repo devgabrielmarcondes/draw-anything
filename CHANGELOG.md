@@ -14,6 +14,7 @@ The project uses [Semantic Versioning](https://semver.org/).
 - Color-mode benchmark in `benchmark/color/`: 16 kinds of synthetic images, CIEDE2000, SSIM and edge metrics.
 
 ### Fixed
+- Pen animation in color mode: each outline uses the color of its layer and fades out when the colors fade in. Before, all outlines were drawn in the theme accent color and stayed on top of the finished image.
 - Windows: scripts write text files (SVG, Desmos, JSON, Tupper k) in UTF-8. Before, `tupper.py encode --out` failed with `UnicodeEncodeError` on the `≤` character.
 - Windows: scripts write console output in UTF-8. Before, `fourier_draw.py --help` and `tupper.py --help` failed when the output went to a pipe.
 - `sdf.py --help` prints the library help. Before, it tried to save the demo image to a file named `--help`.

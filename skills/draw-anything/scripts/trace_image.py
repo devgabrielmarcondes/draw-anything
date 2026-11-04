@@ -403,15 +403,18 @@ def render_png(layers, w, h, out, size, th, bg):
 
 def animate_pen(layers, w, h, out, size, th, bg, frames=240, fps=30, hold=45):
     """A pen draws all curves at the same time (speed set by length). Fill layers
-    then fade in. Stroke layers use their own widths and colors."""
+    then fade in, and their outlines fade out. Stroke layers use their own widths
+    and colors. Ink/edges outlines use the accent color; color-mode outlines use
+    the color of their layer."""
     from matplotlib.collections import LineCollection
     polys = []
+    has_fill = any(not is_stroke(l) for l in layers)
+    multi = sum(not is_stroke(l) for l in layers) > 1
     for layer in layers:
         if is_stroke(layer):
-            polys += [(layer[0], sample_curve(st[0], 24), st[1]) for st in layer[1]]
+            polys += [(layer[0], sample_curve(st[0], 24), st[1], False) for st in layer[1]]
         else:
-            polys += [(None, sample_curve(segs, 24), None) for segs in layer[1]]
-    has_fill = any(not is_stroke(l) for l in layers)
+            polys += [(layer[0] if multi else None, sample_curve(segs, 24), None, True) for segs in layer[1]]
 
     def frame(i):
         fig, ax = make_figure(size, {**th, "bg": bg})
@@ -419,16 +422,19 @@ def animate_pen(layers, w, h, out, size, th, bg, frames=240, fps=30, hold=45):
         ppu = _ppu(ax, size)
         f = min(1.0, (i + 1) / frames)
         f = 1 - (1 - f) ** 2      # slow down at the end
-        segs, cols, lws = [], [], []
-        for col, P, wd in polys:
-            k = max(2, int(len(P) * f))
-            segs.append(P[:k])
-            cols.append(col or th["accent"])
-            lws.append(wd * ppu * 0.72 if wd else max(size) / 600)
-        ax.add_collection(LineCollection(segs, colors=cols, linewidths=lws, capstyle="round"))
-        if i >= frames and has_fill:
-            _draw_layers(ax, [l for l in layers if not is_stroke(l)], ppu,
-                         alpha=min(1.0, (i - frames) / (hold * 0.5)))
+        fade = min(1.0, max(0, i - frames) / (hold * 0.5)) if has_fill else 0.0
+        if fade:
+            _draw_layers(ax, [l for l in layers if not is_stroke(l)], ppu, alpha=fade)
+        for outline in (True, False):   # fill outlines (fading out), then strokes on top
+            segs, cols, lws = [], [], []
+            for col, P, wd, is_out in polys:
+                if is_out == outline:
+                    segs.append(P[:max(2, int(len(P) * f))])
+                    cols.append(col or th["accent"])
+                    lws.append(wd * ppu * 0.72 if wd else max(size) / 600)
+            if segs and not (outline and fade >= 1):
+                ax.add_collection(LineCollection(segs, colors=cols, linewidths=lws, capstyle="round",
+                                                 alpha=1 - fade if outline else 1))
         return fig
 
     save_animation(frame, frames + hold, out, fps=fps, size=size, transparent=bg == "none")
