@@ -20,7 +20,8 @@ import { whip as whipPan } from "./whip";
 
 const FPS = 30;
 const T = 18; // transition length in frames
-const DROP = 165 + 54; // wave.webm (5.5 s), then a hold on the finished drawing; the iris takes the last 24
+const CLIP = 120; // wave.webm: 4 s
+const DROP = CLIP + 54; // wave.webm, then a hold on the finished drawing; the iris takes the last 24
 const whip = springTiming({ config: { damping: 200 }, durationInFrames: T });
 
 // The camera never parks: a slow push and a small roll over each scene.
@@ -89,7 +90,7 @@ const SFX: [number, string, number][] = [
   [DROP_AT, "whoosh", 0.45],
   [DROP_AT + 10, "swish", 0.35], // drag the clip to V2
   [DROP_AT + 22, "drop", 0.6], // drop it
-  [DROP_AT + 165, "chime", 0.3], // the drawing is complete
+  [DROP_AT + CLIP, "chime", 0.3], // the drawing is complete
   [END - 20, "shimmer", 0.35], // iris
   ...Array.from({ length: 8 }, (_, i): [number, string, number] => [END + 30 + 11 * i, i === 7 ? "blip" : "tick", 0.3]),
 ];
