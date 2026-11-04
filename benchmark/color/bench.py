@@ -15,15 +15,10 @@ sys.path.insert(0, str(HERE.parent.parent / "skills" / "draw-anything" / "script
 import trace_image as T
 
 
-def load_rgb(path):
-    """Same as trace_image.load: RGBA input loses its alpha."""
-    return T.load(path)
-
-
 def vectorize(path, p, meta, out):
     """The color path of trace_image.py main(), with parameters from `p`."""
     t0 = time.time()
-    rgb = T.fit_resolution(load_rgb(path))
+    rgb = T.fit_resolution(T.load(path))
     h, w = rgb.shape[:2]
     n = meta["gt_colors"] if p.get("colors") == "gt" else int(p.get("colors", 16))
     n = max(2, min(n, p.get("max_colors", 32)))

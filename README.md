@@ -124,6 +124,8 @@ Centerline mode, test split (13 cases): IoU 0.836, mean edge deviation 0.32 px, 
 
 The recorded "after" result for this version had a fill IoU of 0.907. The new run gives 0.911. The difference is in one case (`text_2`), because the newer matplotlib draws the text differently. Run times are not comparable between machines. The full results are in [benchmark/results_v0.1.0_all.json](benchmark/results_v0.1.0_all.json).
 
+Color mode has its own [benchmark](benchmark/color/) with 16 kinds of images (CIEDE2000 color difference, SSIM, edge deviation). Test split, 16 colors: mean ΔE 2.12, SSIM 0.93. Smaller is better for ΔE; below 3 is hard to see.
+
 ## Known limitations
 
 - **Blurry images:** fill IoU is approximately 0.62 (Gaussian blur, σ 2.2).
@@ -131,7 +133,7 @@ The recorded "after" result for this version had a fill IoU of 0.907. The new ru
 - **Very small images** (106 px): fill IoU is approximately 0.74.
 - **Centerline mode** gives one stroke width for each stroke. It cannot copy brush strokes that change width.
 - **Color mode** changes smooth gradients (for example, skies) into bands.
-- **Color mode** has no benchmark yet.
+- **Color mode with 16 colors** makes very large SVG files for photos and stipple (up to 12 MB and several minutes). Use fewer colors for these images.
 
 ## Showcase video
 

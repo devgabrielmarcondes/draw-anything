@@ -11,12 +11,14 @@ The project uses [Semantic Versioning](https://semver.org/).
 - CI on GitHub Actions: ruff and fast tests on each push, all tests each week.
 - `scripts/package_skill.py` builds `dist/draw-anything.skill`.
 - `benchmark/gen.py` has a `generate()` function that makes a subset of the dataset.
+- Color-mode benchmark in `benchmark/color/`: 16 kinds of synthetic images, CIEDE2000, SSIM and edge metrics.
 
 ### Fixed
 - Windows: scripts write text files (SVG, Desmos, JSON, Tupper k) in UTF-8. Before, `tupper.py encode --out` failed with `UnicodeEncodeError` on the `≤` character.
 - Windows: scripts write console output in UTF-8. Before, `fourier_draw.py --help` and `tupper.py --help` failed when the output went to a pipe.
 - `sdf.py --help` prints the library help. Before, it tried to save the demo image to a file named `--help`.
 - `centerline.py --help` prints the library help. Before, it printed nothing.
+- `trace_image.py` puts transparent pixels on a white background. Before, it dropped the alpha channel and transparent areas often became black. Color-mode benchmark, test split: ΔE 4.69 → 2.12 (16 colors).
 
 ### Changed
 - Benchmark: `bench.py` and `gen.py` use paths relative to their own directory. They no longer use `/home/claude/...` or `/tmp`.
