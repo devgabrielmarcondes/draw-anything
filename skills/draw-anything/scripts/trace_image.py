@@ -285,15 +285,21 @@ def to_mpl_path(curves):
 # Outputs
 # ----------------------------------------------------------------------------
 
+def _num(v):
+    """0.01 px precision, no trailing zeros: 12.50 -> 12.5, 3.00 -> 3, -0.00 -> 0."""
+    t = f"{v:.2f}".rstrip("0").rstrip(".")
+    return "0" if t == "-0" else t
+
+
 def svg_d(curves, h):
     parts = []
-    f = lambda p: f"{p[0]:.2f} {h - p[1]:.2f}"
+    f = lambda p: f"{_num(p[0])} {_num(h - p[1])}"
     for segs in curves:
-        d = [f"M {f(segs[0][1])}"]
+        d = [f"M{f(segs[0][1])}"]
         for s in segs:
-            d.append(f"L {f(s[2])}" if s[0] == "L" else f"C {f(s[2])} {f(s[3])} {f(s[4])}")
-        parts.append(" ".join(d) + " Z")
-    return " ".join(parts)
+            d.append(f"L{f(s[2])}" if s[0] == "L" else f"C{f(s[2])} {f(s[3])} {f(s[4])}")
+        parts.append("".join(d) + "Z")
+    return "".join(parts)
 
 
 def is_stroke(layer):
@@ -321,7 +327,7 @@ def write_svg(layers, w, h, out, bg=None):
         col = layer[0]
         if is_stroke(layer):
             join = layer[3] if len(layer) > 3 else "round"
-            g = [f'<path d="{svg_d([st[0]], h)[:-2] if not st[2] else svg_d([st[0]], h)}" '
+            g = [f'<path d="{svg_d([st[0]], h)[:-1] if not st[2] else svg_d([st[0]], h)}" '
                  f'stroke-width="{st[1]:.2f}" stroke-linecap="{st[3] if len(st) > 3 else "round"}"/>'
                  for st in layer[1]]
             body.append(f'<g id="strokes-{i + 1}" fill="none" stroke="{col}" '

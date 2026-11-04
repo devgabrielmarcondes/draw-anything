@@ -56,7 +56,7 @@ def metrics(svg, gt):
         edge = float("nan")
     txt = Path(svg).read_text(encoding="utf-8")
     return dict(de=float(de.mean()), de95=float(np.percentile(de, 95)), ssim=float(ssim), edge=edge,
-                regions=len(re.findall(r"M ", txt)), colors=len(set(re.findall(r'fill="(#[0-9a-f]{6})"', txt))),
+                regions=len(re.findall(r"M", txt)), colors=len(set(re.findall(r'fill="(#[0-9a-f]{6})"', txt))),
                 kb=len(txt.encode()) / 1024)
 
 

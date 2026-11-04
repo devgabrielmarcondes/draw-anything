@@ -21,6 +21,7 @@ The project uses [Semantic Versioning](https://semver.org/).
 - `trace_image.py` puts transparent pixels on a white background. Before, it dropped the alpha channel and transparent areas often became black. Color-mode benchmark, test split: ΔE 4.69 → 2.12 (16 colors).
 
 ### Changed
+- SVG paths have no trailing zeros and no spaces after the command letters. The precision does not change (0.01 px). The Great Wave color SVG is 14% smaller (5.5 MB → 4.7 MB).
 - `centerline.py` is 2.2× faster (the node centers are found in one pass). The strokes are identical.
 - Benchmark: `bench.py` and `gen.py` use paths relative to their own directory. They no longer use `/home/claude/...` or `/tmp`.
 
