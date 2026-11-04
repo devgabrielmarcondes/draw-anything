@@ -4,7 +4,7 @@ An Agent Skill for Claude that draws and copies images with math, and exports th
 
 ![The Great Wave, drawn again with Bézier curves by draw-anything](assets/great-wave-demo.gif)
 
-[Watch the showcase video (MP4)](assets/showcase.mp4) · [Great Wave demo (MP4)](assets/great-wave-demo.mp4) · [Line-art demo (MP4)](assets/draw-anything-demo.mp4) · [Star in epicycles (MP4)](assets/star-centerline-fourier.mp4)
+[Showcase video (MP4)](assets/showcase.mp4) · [Great Wave demo (MP4)](assets/great-wave-demo.mp4) · [Line-art demo (MP4)](assets/draw-anything-demo.mp4) · [Star in epicycles (MP4)](assets/star-centerline-fourier.mp4)
 
 ## Examples
 
@@ -15,6 +15,12 @@ An Agent Skill for Claude that draws and copies images with math, and exports th
 ![Line drawing: original PNG and the editable centerline SVG, with 3× zoom panels](assets/readme-comparison.png)
 
 *Centerline mode: 121 editable pen strokes, each with its own width. Mean edge deviation 0.74 px.*
+
+## In a real edit
+
+![A creator asks Claude Code to copy an image with math, then puts the transparent clip on the video timeline](assets/showcase.gif)
+
+*A creator asks Claude Code to copy an image for a video edit, and puts the transparent result on the timeline. [MP4 version](assets/showcase.mp4).*
 
 ## Which method to use
 
