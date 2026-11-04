@@ -130,14 +130,14 @@ def edge_mask(rgb, low=60, high=160, thickness=2):
     return e > 0
 
 
-def color_layers(rgb, n=4, smooth=1, min_area=None, merge=7.0):
+def color_layers(rgb, n=4, smooth=1, min_area=None, merge=7.0, sp=4, sr=12):
     """K-means in Lab color space to n colors, small specks merged into their
     neighbors. Returns [(hex_color, stacked_mask)], back to front."""
     import cv2
     from scipy.ndimage import label, distance_transform_edt
     h, w = rgb.shape[:2]
     # mean-shift flattens paper/photo texture but keeps edges and small details
-    img = cv2.pyrMeanShiftFiltering(rgb, 4, 12) if smooth else rgb
+    img = cv2.pyrMeanShiftFiltering(rgb, sp, sr) if smooth else rgb
     lab_img = cv2.cvtColor(img, cv2.COLOR_RGB2LAB).reshape(-1, 3).astype(np.float32)
     crit = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 40, 0.3)
     _, lab, cen = cv2.kmeans(lab_img, n, None, crit, 4, cv2.KMEANS_PP_CENTERS)
