@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Build and run outputs
+dist/
+out/
+benchmark/data/
+benchmark/color/data/
+
+# Local inputs (not part of the repository)
+inputs/
+draw-anything-en.skill
+vectorization-benchmark/
