@@ -95,11 +95,13 @@ const SFX: [number, string, number][] = [
   ...Array.from({ length: 8 }, (_, i): [number, string, number] => [END + 30 + 11 * i, i === 7 ? "blip" : "tick", 0.3]),
 ];
 
+const SFX_GAIN = 0.3; // all effects, under the music
+
 const Sfx: React.FC = () => (
   <>
     {SFX.map(([at, name, volume], i) => (
       <Sequence key={i} from={at} layout="none">
-        <Audio src={staticFile(`sfx/${name}.wav`)} volume={volume} />
+        <Audio src={staticFile(`sfx/${name}.wav`)} volume={volume * SFX_GAIN} />
       </Sequence>
     ))}
   </>
