@@ -7,5 +7,7 @@ line-length = 120
 target-version = "py311"
 
 [tool.ruff.lint]
-# The skill scripts use a compact style: several imports or statements on one line.
-ignore = ["E401", "E701", "E702", "E731", "E741"]
+select = ["E4", "E7", "E9", "F"]
+# The skill scripts use a compact style: several imports or statements on one line,
+# and imports after sys.path or matplotlib.use() changes.
+ignore = ["E401", "E402", "E701", "E702", "E731", "E741"]

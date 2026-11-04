@@ -42,7 +42,7 @@ def vectorize(path, method, p):
             lab, n = label(mask); sz = np.bincount(lab.ravel()); mask = mask & (sz[lab] > p.get("detail", 4) * 4)
         st = C.centerline_strokes(mask, err=p.get("err", 1.0), smooth=p.get("csmooth", 1.5), ink=ink)
         layers = [("#000000", st, "stroke", "round")]
-    b = io.StringIO(); fn = os.path.join(tempfile.gettempdir(), "draw_anything_bench.svg")
+    fn = os.path.join(tempfile.gettempdir(), "draw_anything_bench.svg")
     T.write_svg(layers, w, h, fn, "#ffffff")
     dt = time.time() - t0
     nseg = sum(len(s) if not T.is_stroke(l) else len(s[0]) for l in layers for s in l[1])

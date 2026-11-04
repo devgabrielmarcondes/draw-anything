@@ -6,6 +6,12 @@ The project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- Windows: scripts write text files (SVG, Desmos, JSON, Tupper k) in UTF-8. Before, `tupper.py encode --out` failed with `UnicodeEncodeError` on the `≤` character.
+- Windows: scripts write console output in UTF-8. Before, `fourier_draw.py --help` and `tupper.py --help` failed when the output went to a pipe.
+- `sdf.py --help` prints the library help. Before, it tried to save the demo image to a file named `--help`.
+- `centerline.py --help` prints the library help. Before, it printed nothing.
+
 ### Changed
 - Benchmark: `bench.py` and `gen.py` use paths relative to their own directory. They no longer use `/home/claude/...` or `/tmp`.
 
