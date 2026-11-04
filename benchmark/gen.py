@@ -84,13 +84,19 @@ def degrade(img, how, rng):
         return img.resize((S // 3, S // 3), Image.LANCZOS)
     return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
-os.makedirs(DATA, exist_ok=True); meta = []
-for name, mk in kinds().items():
-    for seed in range(3):
-        rng = np.random.default_rng(sum(map(ord, name)) + seed * 7919)
-        draw, bg, how = mk(rng)
-        gt = render(draw, S * K, bg); inp = degrade(render(draw, S, bg), how, rng)
-        cid = f"{name}_{seed}"; inp.save(f"{DATA}/{cid}.png"); gt.save(f"{DATA}/{cid}_gt.png")
-        meta.append({"id": cid, "kind": name, "split": "test" if seed == 2 else "train",
-                     "lineart": name not in ("shapes", "text", "thick", "stipple")})
-json.dump(meta, open(f"{DATA}/meta.json", "w"), indent=0); print(len(meta), "cases")
+def generate(out=DATA, names=None, seeds=range(3)):
+    """Write the cases (all, or only `names` and `seeds`) and meta.json to `out`."""
+    os.makedirs(out, exist_ok=True); meta = []
+    for name, mk in kinds().items():
+        if names and name not in names: continue
+        for seed in seeds:
+            rng = np.random.default_rng(sum(map(ord, name)) + seed * 7919)
+            draw, bg, how = mk(rng)
+            gt = render(draw, S * K, bg); inp = degrade(render(draw, S, bg), how, rng)
+            cid = f"{name}_{seed}"; inp.save(f"{out}/{cid}.png"); gt.save(f"{out}/{cid}_gt.png")
+            meta.append({"id": cid, "kind": name, "split": "test" if seed == 2 else "train",
+                         "lineart": name not in ("shapes", "text", "thick", "stipple")})
+    json.dump(meta, open(f"{out}/meta.json", "w"), indent=0)
+    return meta
+if __name__ == "__main__":
+    print(len(generate()), "cases")
