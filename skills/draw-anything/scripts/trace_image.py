@@ -54,8 +54,10 @@ def _need_potrace():
 # ----------------------------------------------------------------------------
 
 def load(path):
+    """RGB array. Transparent pixels become white (dropping alpha can make them black)."""
     from PIL import Image
-    return np.asarray(Image.open(path).convert("RGB"))
+    im = Image.open(path).convert("RGBA")
+    return np.asarray(Image.alpha_composite(Image.new("RGBA", im.size, "white"), im).convert("RGB"))
 
 
 def fit_resolution(rgb, max_side=1600, min_side=1200):
@@ -132,7 +134,8 @@ def edge_mask(rgb, low=60, high=160, thickness=2):
 
 def color_layers(rgb, n=4, smooth=1, min_area=None, merge=7.0, sp=4, sr=12):
     """K-means in Lab color space to n colors, small specks merged into their
-    neighbors. Returns [(hex_color, stacked_mask)], back to front."""
+    neighbors. sp, sr: mean-shift radii.
+    Returns [(hex_color, stacked_mask)], back to front."""
     import cv2
     from scipy.ndimage import label, distance_transform_edt
     h, w = rgb.shape[:2]
