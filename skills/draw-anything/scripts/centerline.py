@@ -539,4 +539,5 @@ def _stroke_widths(mask, chains, dt, w, ink=None):
 
 
 if __name__ == "__main__":
+    import sys; sys.stdout.reconfigure(encoding="utf-8")
     print(__doc__)   # library: trace_image.py --centerline uses it
