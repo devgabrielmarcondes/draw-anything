@@ -6,6 +6,12 @@ The project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Tests: smoke test for each script, Tupper encode/decode round trip, benchmark regression gate (`slow`).
+- CI on GitHub Actions: ruff and fast tests on each push, all tests each week.
+- `scripts/package_skill.py` builds `dist/draw-anything.skill`.
+- `benchmark/gen.py` has a `generate()` function that makes a subset of the dataset.
+
 ### Fixed
 - Windows: scripts write text files (SVG, Desmos, JSON, Tupper k) in UTF-8. Before, `tupper.py encode --out` failed with `UnicodeEncodeError` on the `≤` character.
 - Windows: scripts write console output in UTF-8. Before, `fourier_draw.py --help` and `tupper.py --help` failed when the output went to a pipe.
