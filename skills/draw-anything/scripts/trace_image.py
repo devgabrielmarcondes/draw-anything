@@ -132,7 +132,7 @@ def edge_mask(rgb, low=60, high=160, thickness=2):
     return e > 0
 
 
-def color_layers(rgb, n=4, smooth=1, min_area=None, merge=7.0, sp=4, sr=12):
+def color_layers(rgb, n=4, smooth=1, min_area=None, merge=7.0, sp=6, sr=16):
     """K-means in Lab color space to n colors, small specks merged into their
     neighbors. sp, sr: mean-shift radii.
     Returns [(hex_color, stacked_mask)], back to front."""

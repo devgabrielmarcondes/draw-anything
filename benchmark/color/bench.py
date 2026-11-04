@@ -22,7 +22,7 @@ def vectorize(path, p, meta, out):
     h, w = rgb.shape[:2]
     n = meta["gt_colors"] if p.get("colors") == "gt" else int(p.get("colors", 16))
     n = max(2, min(n, p.get("max_colors", 32)))
-    cl = T.color_layers(rgb, n, merge=p.get("merge", 7.0), sp=p.get("sp", 4), sr=p.get("sr", 12))
+    cl = T.color_layers(rgb, n, merge=p.get("merge", 7.0), sp=p.get("sp", 6), sr=p.get("sr", 16))
     bg = cl[0][0]
     d, sm, tol = p.get("detail", 4), p.get("smooth", 1.0), p.get("tol", 0.2)
     layers = [(c, T.trace(m, d, sm, tol)) for c, m in cl[1:]]
