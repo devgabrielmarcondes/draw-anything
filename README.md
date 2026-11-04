@@ -1,6 +1,6 @@
 # draw-anything
 
-An Agent Skill for Claude that draws and copies images with math, and exports them for video creators.
+An [Agent Skill](https://agentskills.io/) that draws and copies images with math, and exports them for video creators. Made for Claude, in the open Agent Skills format.
 
 ![The Great Wave, drawn again with Bézier curves by draw-anything](assets/great-wave-demo.gif)
 
@@ -63,6 +63,12 @@ Install the Python packages and `ffmpeg`:
 ```bash
 pip install -r requirements.txt
 ```
+
+### Other agents
+
+The skill uses the open [Agent Skills](https://agentskills.io/) format (a folder with a `SKILL.md` file). Other agents that read this format can load it, for example ChatGPT and Codex, Gemini CLI, Google Antigravity, OpenCode, Cursor and GitHub Copilot. Copy `skills/draw-anything` to the skills folder of your agent (read its documentation for the path). The agent must be able to run Python scripts.
+
+We test the skill only with Claude Code and Claude.ai. Reports from other agents are welcome.
 
 ## Use
 
