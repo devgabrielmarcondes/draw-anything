@@ -21,3 +21,6 @@ export const C = {
 
 export const ease = Easing.bezier(0.16, 1, 0.3, 1);
 export const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+
+// Springs: a tiny overshoot for UI elements; none for type (type uses `ease`).
+export const ui = { damping: 14, mass: 0.6 };

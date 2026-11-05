@@ -7,9 +7,20 @@ const ROWS = [
 ];
 
 // Clients that read the open Agent Skills format (agentskills.io and each client's own docs).
-const AGENTS = ["Claude", "ChatGPT", "Codex", "Gemini CLI", "Antigravity", "OpenCode", "Cursor", "GitHub Copilot", "any compatible agent"];
-const START = 30; // first change
-const STEP = 11; // frames per name
+export const AGENTS = [
+  "Claude",
+  "ChatGPT",
+  "Codex",
+  "Gemini CLI",
+  "Antigravity",
+  "OpenCode",
+  "Cursor",
+  "GitHub Copilot",
+  "any compatible agent",
+];
+// The names change on half-beats of the music (one beat = 23 frames).
+export const START = 34.5; // first change
+export const STEP = 11.5; // frames per name
 const LINE = 76; // slot height in px
 
 const Slot: React.FC = () => {
@@ -27,7 +38,12 @@ const Slot: React.FC = () => {
           <span
             key={a}
             style={{
-              display: "block", height: LINE, lineHeight: `${LINE}px`, color: C.coral, fontWeight: 600, fontSize: 60,
+              display: "block",
+              height: LINE,
+              lineHeight: `${LINE}px`,
+              color: C.coral,
+              fontWeight: 600,
+              fontSize: 60,
               opacity: interpolate(Math.abs(pos - i), [0, 0.7], [1, 0], clamp),
             }}
           >
@@ -49,7 +65,9 @@ export const EndCard: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: C.bg, justifyContent: "center", alignItems: "center", textAlign: "center" }}>
       <div style={{ fontFamily: serif, fontSize: 132, color: C.ink, letterSpacing: -2, ...fade(4) }}>draw-anything</div>
-      <div style={{ fontFamily: sans, fontSize: 40, color: C.muted, marginTop: 4, ...fade(10) }}>Draw anything with math.</div>
+      <div style={{ fontFamily: sans, fontSize: 40, color: C.muted, marginTop: 4, ...fade(10) }}>
+        Draw anything with math.
+      </div>
       <div style={{ fontFamily: sans, fontSize: 48, color: C.ink, marginTop: 14, ...fade(16) }}>
         An Agent Skill for
         <Slot />
@@ -60,8 +78,12 @@ export const EndCard: React.FC = () => {
             <div
               key={label}
               style={{
-                fontFamily: mono, fontSize: 24, padding: "10px 20px", borderRadius: 999,
-                border: `1.5px solid ${r === 0 ? C.coral : "#D8D3C8"}`, color: r === 0 ? C.coral : C.ink,
+                fontFamily: mono,
+                fontSize: 24,
+                padding: "10px 20px",
+                borderRadius: 999,
+                border: `1.5px solid ${r === 0 ? C.coral : "#D8D3C8"}`,
+                color: r === 0 ? C.coral : C.ink,
                 ...fade(chipsAt - 30 + r * 10 + i * 3),
               }}
             >
